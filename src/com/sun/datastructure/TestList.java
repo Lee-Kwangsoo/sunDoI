@@ -1,32 +1,38 @@
 package com.sun.datastructure;
 
+class Node{
+    private String data;
+    private Node next;
+    public Node(String data){
+        this.data=data;
+    }
+    public void setNext(Node next){
+        this.next=next;
+    }
+    public Node getNext( ){
+        return this.next;
+    }
+    public String getData(){
+        return this.data;
+    }
+
+}
+
 public class TestList {
-    //创建节点类
-    class Node<E>{
-        // <E>中的E表示类型形参，可以接收具体的类型实参，并且此接口定义中，凡是出现E的地方均表示相同的接受自外部的类型实参。
-        Node<E> next;
-        E element;
-        public Node(Node next,E element){
-            this.next=next;
-            this.element=element;
+    public static void main(String[] args) {
+        Node root=new Node("火车头");
+        Node n1=new Node("车厢A");
+        Node n2=new Node("车厢B");
+        root.setNext(n1);
+        n1.setNext(n2);
+        //取出所有数据
+        Node currentNode=root;
+        while (currentNode!=null){
+            System.out.println(currentNode.getData());
+            currentNode=currentNode.getNext();
         }
     }
-    //创建单向链表
-    class SingeLinkedList{
-        private int size;
-        private Node head;
-        public SingeLinkedList(){
-            size=0;
-            head=null;
-        }
 
-        /**
-         * 链表操作
-         */
-        //链表头添加元素
-        public Object addhead(Object obj){
 
-        }
-    }
 
 }
