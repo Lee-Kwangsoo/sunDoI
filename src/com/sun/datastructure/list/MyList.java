@@ -1,5 +1,8 @@
 package com.sun.datastructure.list;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class MyList {
     class Node{
         Node next=null;//节点的引用，指向下一个节点
@@ -190,6 +193,126 @@ public class MyList {
         }
         return p1;
     }
+    public Node sortList(Node head){
+        if (head==null||head.next==null){
+            return head;
+        }
+        Node mid=getMid(head);
+        Node right=mid.next;
+        mid.next=null;
+        return mergeSort(sortList(head),sortList(right));
+    }
+    /**
+     * 获取链表的中间节点，偶数时取中间第一个
+     *
+     */
+    private Node getMid(Node head){
+        if (head==null||head.next==null){
+            return head;
+        }
+        Node slow=head;
+        Node fast=head;
+        while (fast.next!=null&&fast.next.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        return slow;
+    }
+    //归并排序两个有序链表
+    private Node mergeSort(Node head1,Node head2){
+        Node p1=head1;
+        Node p2=head2;
+        Node head;
+        //得到头节点指向
+        if (head1.data<head2.data){
+            head=head1;
+            p1=p1.next;
+        }else {
+            head=head2;
+            p2=p2.next;
+        }
+        Node p=head;
+        //比较链表中的值
+        while(p1!=null&&p2!=null) {
+            if (p1.data < p2.data) {
+                p1.next = p1;
+                p1 = p1.next;
+                p = p.next;
+            } else {
+                p.next = p2;
+                p2 = p2.next;
+                p = p.next;
+            }
+        }
+            //第二条链表空了
+            if (p1!=null){
+                p1.next=p1;
+            }
+            if (p2!=null){
+                p2.next=p2;
+            }
+            return head;
+    }
+
+    /**
+     * 删除重复节点  排序链表中的重复节点
+     */
+    public  void deleteDuplecate(Node head){
+        Node p=head;
+        while (p.next!=null){
+            Node  q=p;
+            while (q.next!=null){
+                if (p.data==q.next.data){
+                    q.next=q.next.next;
+                }else
+                    q=q.next;
+            }
+        }
+    }
+    /**
+     * 递归方式输出单链表
+     */
+    public void  printListReversely(Node head){
+        if (head!=null){
+            printListReversely(head.next);
+            System.out.println(head.data);
+        }
+    }
+    /**
+     * 判断链表是否有环，单向链表有环时，尾节点相同
+     */
+    //循环遍历节点，遍历一个标记一个，遍历过程判断是否被标记，
+    public boolean hasCycle(Node head){
+        Set<Node> set=new HashSet<Node>();
+        while (head!=null){
+            if (set.contains(head)){
+                return true;
+            }else {
+                set.add(head);
+                head=head.next;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 方法二：声明两个指针，一个指针走一次经过两个节点，另一个经过一个节点
+     * 若无环--》慢指针肯定追不上快指针  有环--》肯定能追上快指针
+     */
+    public boolean hasCycle1(Node head){
+        //声明两个节点从头开始遍历节点
+        Node quick=head;
+        Node slow=head;
+        while (quick!=null||quick.next!=null){
+            quick=quick.next.next;
+            slow=slow.next;
+            if (quick==slow){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 
