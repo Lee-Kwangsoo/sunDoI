@@ -52,8 +52,70 @@ public class TestStack {
          * 2状态：栈空 栈满（逻辑上永远不会栈满，除非电脑没有内存）
          * 2操作：压栈push 出栈pop
          */
+        private LinkNode<T> top;
+        public LinkStack(){
+            this.top=new LinkNode<T>();
+        }
+        //初始化栈
+        public void initStack(){
+            this.top.setData(null);
+            this.top.setNext(null);
+        }
+        //是否栈空
+        public boolean isNull(){
+            boolean flag=top.getNext()==null?true:false;
+            return flag;
+        }
+        //压栈
+        public void push(LinkNode<T> node){
+            if (isNull()){
+                top.setNext(node);
+                node.setNext(null);
+            }else {
+                node.setNext(top.getNext());
+                top.setNext(node);
+            }
+        }
+        //弹栈
+        public LinkNode<T>  pop(){
+            if(isNull()){
+                return null;
+            }else {
+                LinkNode<T> delNode=top.getNext();
+                top.setNext(top.getNext().getNext());//删除节点
+                return delNode;
+            }
+        }
 
 
+
+    }
+    //链式栈节点（外部类实现，也可以用内部类）
+
+    class LinkNode<T>{
+        private T data;//数据域
+        private LinkNode<T> next;//指针域
+        public LinkNode(){
+            this.data=null;
+            this.next=null;
+        }
+        public LinkNode(T data){
+            super();
+            this.data=data;
+            this.next=null;
+        }
+        public T getData(){
+            return data;
+        }
+        public void setData(T data){
+            this.data=data;
+        }
+        public LinkNode<T> getNext(){
+            return next;
+        }
+        public void setNext(LinkNode<T> next){
+            this.next=next;
+        }
     }
 
 }
