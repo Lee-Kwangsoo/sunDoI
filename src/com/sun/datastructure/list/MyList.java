@@ -4,11 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MyList {
-    class Node{
+    static class Node{
         Node next=null;//节点的引用，指向下一个节点
         int data;//节点对象
-        public Node(int data){
+         Node(int data){
             this.data=data;
+        }
+         Node(int data,Node next){
+            this.data=data;
+            this.next=next;
         }
     }
 

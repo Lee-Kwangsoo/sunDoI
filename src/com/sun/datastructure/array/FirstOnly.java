@@ -28,6 +28,24 @@ public class FirstOnly {
         return only;
     }
 
+    public static int f(int[] a){
+        int index=0;
+        int only=0;
+        for (int i=0;i<a.length;i++){
+            for (int j=0;j<a.length;j++){
+                if (a[i]==a[j]){
+                    index++;
+                }
+            }
+            if (index==1){
+                only=a[i];
+            }else {
+                index=0;
+            }
+        }
+        return only;
+    }
+
 //    第二种
     public static int  test1(int[] a){
         int s=0;
